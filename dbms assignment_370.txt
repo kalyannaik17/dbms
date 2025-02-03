@@ -1,0 +1,105 @@
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.40 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| omega370           |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use omega370;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_omega370 |
++--------------------+
+| kalyan             |
+| persons            |
+| student            |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into student(S_ID,Name,Address)
+    -> values(1,'yaswanth','ongole'),
+    -> (2,'pranay','Hydearabad'),
+    -> (3,'mahesh','uppal'),
+    -> (4,'akhilesh','bihar'),
+    -> (5,'suresh','vijaywada');
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++------+----------+------------+
+| S_ID | Name     | Address    |
++------+----------+------------+
+|    1 | yaswanth | ongole     |
+|    2 | pranay   | Hydearabad |
+|    3 | mahesh   | uppal      |
+|    4 | akhilesh | bihar      |
+|    5 | suresh   | vijaywada  |
++------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> create table studentmarks(
+    -> ID int,
+    -> Name varchar(50),
+    -> Marks int,
+    -> Age int
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into studentmarks(ID,Name,Marks,Age)
+    -> values(1,'yaswanth',90,19),
+    -> (2,'pranay',85,16),
+    -> (3,'mahesh',90,18),
+    -> (4,'akhilesh',100,23),
+    -> (5,'suresh',80,20);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from studentmarks;
++------+----------+-------+------+
+| ID   | Name     | Marks | Age  |
++------+----------+-------+------+
+|    1 | yaswanth |    90 |   19 |
+|    2 | pranay   |    85 |   16 |
+|    3 | mahesh   |    90 |   18 |
+|    4 | akhilesh |   100 |   23 |
+|    5 | suresh   |    80 |   20 |
++------+----------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> create view Marks as
+    -> select studentmarks.ID,student.Name,student.Address,studentmarks.Marks from student,studentmarks
+    -> where student.Name=studentmarks.Name;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from Marks;
++------+----------+------------+-------+
+| ID   | Name     | Address    | Marks |
++------+----------+------------+-------+
+|    1 | yaswanth | ongole     |    90 |
+|    2 | pranay   | Hydearabad |    85 |
+|    3 | mahesh   | uppal      |    90 |
+|    4 | akhilesh | bihar      |   100 |
+|    5 | suresh   | vijaywada  |    80 |
++------+----------+------------+-------+
+5 rows in set (0.01 sec)
+
+mysql>
